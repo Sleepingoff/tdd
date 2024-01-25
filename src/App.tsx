@@ -5,6 +5,8 @@ import HomePage from "./page/Home.tsx";
 import ProfilePage from "./page/Profile.tsx";
 import SignInPage from "./page/SignIn.tsx";
 import GlobalStyles from "./styles/global.tsx";
+import { useEffect, useState } from "react";
+import Loading from "./components/loading.tsx";
 
 const router = createBrowserRouter([
   {
@@ -32,10 +34,18 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const init = async () => {
+    //wait for firebase
+    setIsLoading(false);
+  };
+  useEffect(() => {
+    init();
+  }, []);
   return (
     <>
       <GlobalStyles />
-      <RouterProvider router={router} />
+      {isLoading ? <Loading /> : <RouterProvider router={router} />}
     </>
   );
 }
