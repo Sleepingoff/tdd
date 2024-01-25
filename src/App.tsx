@@ -1,9 +1,10 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Layout from "./components/layout.tsx";
-import SignUpPage from "./page/Signup.tsx";
-import HomePage from "./page/home.tsx";
-import ProfilePage from "./page/profile.tsx";
+import SignUpPage from "./page/SignUp.tsx";
+import HomePage from "./page/Home.tsx";
+import ProfilePage from "./page/Profile.tsx";
 import SignInPage from "./page/SignIn.tsx";
+import GlobalStyles from "./styles/global.tsx";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <>
+      <GlobalStyles />
       <RouterProvider router={router} />
     </>
   );
