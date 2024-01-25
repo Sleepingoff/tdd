@@ -1,8 +1,9 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import SignUpPage from "./page/Signup.tsx";
 import Layout from "./components/layout.tsx";
-import Home from "./routes/home.tsx";
-import Profile from "./routes/profile.tsx";
+import SignUpPage from "./page/Signup.tsx";
+import HomePage from "./page/home.tsx";
+import ProfilePage from "./page/profile.tsx";
+import SignInPage from "./page/SignIn.tsx";
 
 const router = createBrowserRouter([
   {
@@ -11,13 +12,21 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Home />,
+        element: <HomePage />,
       },
       {
         path: "profile",
-        element: <Profile />,
+        element: <ProfilePage />,
       },
     ],
+  },
+  {
+    path: "/signin",
+    element: <SignInPage />,
+  },
+  {
+    path: "/signup",
+    element: <SignUpPage />,
   },
 ]);
 
