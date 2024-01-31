@@ -1,14 +1,18 @@
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { auth } from "../firebase";
+import { useNavigate } from "react-router-dom";
 
 const SignUpPage = () => {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState("");
 
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string | number>("");
-  const [confirmPassword, setConfirmPassword] = useState<string | number>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,6 +39,8 @@ const SignUpPage = () => {
     e.preventDefault();
     if (confirmPassword === password) {
       setIsSuccess(true);
+    } else {
+      setError("비밀번호가 일치하지 않습니다.");
     }
   };
 
@@ -47,12 +53,24 @@ const SignUpPage = () => {
     //set the name of the user
 
     //redirect to homepage
+    const createUser = async () => {
+      try {
+        if (!name || !email || !password || !isSuccess) throw error;
+        const credentials = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+        await updateProfile(credentials.user, { displayName: name });
+        navigate("/");
+      } catch (e) {
+        console.log(e);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-    try {
-    } catch (error) {
-    } finally {
-      setIsLoading(false);
-    }
+    createUser();
   }, [isSuccess]);
 
   return (
