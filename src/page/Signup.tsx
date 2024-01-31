@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const SignUpPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState();
+  const [error, setError] = useState("");
 
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -106,6 +106,7 @@ const SignUpPage = () => {
           회원가입
         </Button>
       </Form>
+      {error && <Error>{error}</Error>}
     </Wrapper>
   );
 };
@@ -138,4 +139,9 @@ const Input = styled.input`
 
 const Button = styled.button`
   cursor: pointer;
+`;
+
+const Error = styled.span`
+  font-weight: 600;
+  color: tomato;
 `;
